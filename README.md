@@ -19,5 +19,6 @@ este mecanismo te va a proporcionar una gestión de ellas para que, básicamente
 <p>✔️ JSON</p>
 <p>✔️  </p>
 <p align=center> ¿Cómo puedes utilizar este proyecto? 😀  </p>
+<p> Para poder utilizar este proyecto debes tener en cuenta lo siguiente: </p>
 
 
