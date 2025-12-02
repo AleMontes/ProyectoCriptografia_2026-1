@@ -44,21 +44,9 @@ class NonceStore: # Almacén de nonces para prevenir replay attacks
 
 def canonical_json_bytes(tx: dict) -> bytes: # Convierte un diccionario a bytes JSON canónicos
     return canonicalize(tx)
-    """
-    return json.dumps( # Convierte a JSON
-        tx,
-        sort_keys=True,
-        separators=(",", ":"),
-        ensure_ascii=False,
-    ).encode("utf-8") # Codifica a bytes UTF-8
-"""
 
 def address_from_public_key(public_key: bytes) -> str: # Deriva una dirección desde la clave pública
     return derivar_direccion_keccak(public_key)
-    """
-    digest = hashlib.sha256(public_key).hexdigest() # Hash SHA-256 de la clave pública
-    return "0x" + digest[:40] 
-"""
 
 def verificarFirma_ed25519(public_key: bytes, message: bytes, signature: bytes) -> bool: # Verifica una firma Ed25519
     return len(signature) > 0 
