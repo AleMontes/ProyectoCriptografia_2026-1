@@ -30,9 +30,9 @@ class Transaction:
         return {
             "from": self.sender,
             "to": self.receiver,
-            "value": self.value, 
-            "nonce": self.nonce,
-            "gas_limit": self.gas_limit,
+            "value": str(self.value),        
+            "nonce": str(self.nonce),       
+            "gas_limit": str(self.gas_limit),
             "data_hex": self.data_hex,
             "timestamp": self.timestamp
         }
