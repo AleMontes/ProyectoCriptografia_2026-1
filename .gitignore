@@ -1,0 +1,13 @@
+# Python Bytecode 
+__pycache__/
+*.py[cod]
+
+# Archivos de sistema y logs 
+.DS_Store
+*.log
+
+# Configuración de editor (VS Code) 
+.vscode/
+
+# Entorno virtual del proyecto
+cripto_env/
