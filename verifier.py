@@ -57,39 +57,39 @@ def verificarFirma_secp256k1(public_key: bytes, digest: bytes, signature: bytes)
 
 def verificar_firma(data: dict, nonce_store: NonceStore | None = None) -> VerificaResultato: # Verifica la firma de una transacción
     if not isinstance(data, dict): # Si data no es un diccionario
-        return VerificaResultato(False, "bad_format", "data no es un diccionario")
+        return VerificaResultato(False, "Formato invalido", "data no es un diccionario")
 
     for campo in ["tx", "sig_scheme", "signature_b64", "public_key_b64"]: # Campos requeridos
         if campo not in data: # Si falta un campo
-            return VerificaResultato(False, "bad_format", f"falta campo: {campo}")
+            return VerificaResultato(False, "Formato invalido", f"falta campo: {campo}")
 
     tx = data["tx"] # Obtiene la transacción
     if not isinstance(tx, dict): # Si tx no es un diccionario
-        return VerificaResultato(False, "bad_format", "tx debe ser un dict")
+        return VerificaResultato(False, "Formato invalido", "tx debe ser un dict")
 
     for campo in ["from_address", "to", "value", "nonce", "timestamp"]: # Campos requeridos en tx
         if campo not in tx: # Si falta un campo en tx
-            return VerificaResultato(False, "bad_format", f"falta campo en tx: {campo}")
+            return VerificaResultato(False, "Formato invalido", f"falta campo en tx: {campo}")
 
     try: # Convierte nonce a entero
         nonce_int = int(tx["nonce"]) # Convierte nonce a entero
     except (ValueError, TypeError): # Si hay un error en la conversión
-        return VerificaResultato(False, "bad_format", "nonce no es entero") 
+        return VerificaResultato(False, "Formato invalido", "nonce no es entero") 
 
     sig_scheme = data["sig_scheme"] # Obtiene el esquema de firma
     if sig_scheme not in ("ed25519", "secp256k1"): # Si el esquema no es soportado
-        return VerificaResultato(False, "bad_format", f"sig_scheme no soportado: {sig_scheme}") 
+        return VerificaResultato(False, "Formato invalido", f"sig_scheme no soportado: {sig_scheme}") 
 
     try: # Obtiene los bytes JSON canónicos de la transacción
         canonical_bytes = canonical_json_bytes(tx) # Convierte tx a bytes JSON canónicos
     except Exception as e: # Si hay un error en la conversión
-        return VerificaResultato(False, "bad_format", f"error al canonicalizar: {e}") 
+        return VerificaResultato(False, "Formato invalido", f"error al canonicalizar: {e}") 
 
     try: # Decodifica la firma y la clave pública desde base64
         firma = base64.b64decode(data["signature_b64"]) # Decodifica la firma
         public_key = base64.b64decode(data["public_key_b64"]) # Decodifica la clave pública
     except Exception as e: # Si hay un error en la decodificación
-        return VerificaResultato(False, "bad_format", f"error en base64: {e}") 
+        return VerificaResultato(False, "Formato invalido", f"error en base64: {e}") 
 
     try: # Verifica la firma según el esquema
         if sig_scheme == "ed25519": # Si el esquema es Ed25519
@@ -98,20 +98,20 @@ def verificar_firma(data: dict, nonce_store: NonceStore | None = None) -> Verifi
             digest = hashlib.sha256(canonical_bytes).digest() # Calcula el hash SHA-256 de los bytes canónicos
             ok = verificarFirma_secp256k1(public_key, digest, firma) # Verifica la firma secp256k1
     except Exception as e: # Si hay un error durante la verificación
-        return VerificaResultato(False, "bad_signature", f"error cripto: {e}") 
+        return VerificaResultato(False, "Firma invalida", f"error cripto: {e}") 
 
     if not ok: # Si la firma no es válida
-        return VerificaResultato(False, "bad_signature", "firma inválida") 
+        return VerificaResultato(False, "Firma invalida", "firma inválida") 
 
     try: # Deriva la dirección desde la clave pública
         derived = address_from_public_key(public_key) # Deriva la dirección
     except Exception as e: # Si hay un error durante la derivación
-        return VerificaResultato(False, "invalid_address", f"no se pudo derivar address: {e}")
+        return VerificaResultato(False, "Direccion invalida", f"no se pudo derivar address: {e}")
 
     from_address = str(tx["from_address"]) # Obtiene la dirección del remitente
     if derived != from_address: # Si la dirección derivada no coincide con from_address
         msg = f"address derivada ({derived}) != from_address ({from_address})" # Mensaje de error
-        return VerificaResultato(False, "address_mismatch", msg) 
+        return VerificaResultato(False, "Direccion invalida", msg) 
 
     if nonce_store is not None: # Si se proporciona un almacén de nonces
         last = nonce_store.last_nonce(from_address) # Obtiene el último nonce registrado
