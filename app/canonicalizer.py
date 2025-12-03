@@ -12,7 +12,8 @@ def canonicalize(data_dict):
     json_str = json.dumps(
         data_dict,
         sort_keys=True,       
-        separators=(',', ':') 
+        separators=(',', ':'),
+        ensure_ascii=False
     )
     
-    return json_str.encode('utf-8') 
+    return json_str.encode('utf-8')
