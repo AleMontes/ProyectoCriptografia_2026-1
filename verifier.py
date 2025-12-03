@@ -49,7 +49,13 @@ def address_from_public_key(public_key: bytes) -> str: # Deriva una dirección d
     return derivar_direccion_keccak(public_key)
 
 def verificarFirma_ed25519(public_key: bytes, message: bytes, signature: bytes) -> bool: # Verifica una firma Ed25519
-    return len(signature) > 0 
+    try:
+        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
+        pub_key = Ed25519PublicKey.from_public_bytes(public_key)
+        pub_key.verify(signature, message)
+        return True
+    except Exception:
+        return False
 
 
 def verificarFirma_secp256k1(public_key: bytes, digest: bytes, signature: bytes) -> bool: # Verifica una firma secp256k1

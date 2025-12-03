@@ -1,19 +1,19 @@
 {
-  "checksum_hex": "bc2d70447527e0f34a6ae7818576e2106740b74ad621d7eb5a775a25022ee137",
+  "checksum_hex": "bf1bc27f805cd019d5429f405ddfcca8009bcd2f7e6c62123b39927bbbf17e86",
   "cipher": "AES-256-GCM",
   "cipher_params": {
-    "nonce_b64": "1VWAQe0RYTGtvtvk"
+    "nonce_b64": "BCX97Ec3UvbVBsXq"
   },
-  "ciphertext_b64": "DzVNeviGhq6Ugk8/1X0V2ozWk5iw0ALS/PkW1ipt37A=",
-  "created": "2025-12-03T23:19:52Z",
+  "ciphertext_b64": "FOK/2vDKJB2xfdovV6tvNHGYuBfTaNwTqry37NOXcHY=",
+  "created": "2025-12-03T23:35:32Z",
   "kdf": "Argon2id",
   "kdf_params": {
     "memory_cost_kib": 131072,
     "parallelism": 1,
-    "salt_b64": "UB8sokrdkiK6Pfn4VTWW8A==",
+    "salt_b64": "L8ljt79uxvslGMQ9Ac7Ndg==",
     "time_cost": 2
   },
-  "pubkey_b64": "udMVe00PH2siDGU7TKzu9CAPP4yXw39Z/7MtpO57ngA=",
+  "pubkey_b64": "V7ZxoBea3Ewp0ynryxEtPTuQJKjSF+3ggpUZOgw7zc0=",
   "scheme": "Ed25519",
-  "tag_b64": "K4yn4BOVcmv+sup7JFir2w=="
+  "tag_b64": "vqMRo9QgGVM7LCh7PLWJEQ=="
 }

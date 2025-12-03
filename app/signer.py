@@ -32,7 +32,7 @@ class Signer:
 
         return {
             "tx": tx_dict,
-            "sig_scheme": "Ed25519",
+            "sig_scheme": "ed25519",
             "signature_b64": base64.b64encode(signature).decode('utf-8'),
             "pubkey_b64": base64.b64encode(public_bytes).decode('utf-8')
         }

@@ -514,6 +514,7 @@ DOM.verifySignatureForm.addEventListener('submit', async (e) => {
     const fromAddress = DOM.txFromAddress.value.trim();
     const originalMessage = DOM.originalMessage.value.trim();
     const signature = DOM.signatureToVerify.value.trim();
+    const publicKey = document.getElementById('publicKeyToVerify').value.trim();
 
     // Validación básica de JSON
     let txDict;
@@ -527,19 +528,6 @@ DOM.verifySignatureForm.addEventListener('submit', async (e) => {
     showMessage(DOM.verifyMessage, 'Verificando firma...', 'warning');
 
     try {
-        // Necesitamos la llave pública para verificar
-        // Si no la tenemos, pedimos al usuario que la proporcione
-        let publicKey = AppState.publicKey; // Usar la de la wallet cargada si existe
-
-        // Si no hay wallet cargada, necesitamos que el usuario proporcione la llave pública
-        if (!publicKey) {
-            // Podríamos agregar un campo adicional en el formulario, pero por ahora
-            // intentaremos derivar la dirección desde la llave pública del metadata
-            showMessage(DOM.verifyMessage, 'Necesitas proporcionar la llave pública', 'warning');
-            // Por simplicidad, asumimos que el usuario tiene una wallet cargada o
-            // la transacción firmada incluye la llave pública
-            return;
-        }
 
         const response = await fetch(`${AppState.apiBaseUrl}/signature/verify`, {
             method: 'POST',
