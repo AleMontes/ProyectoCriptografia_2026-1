@@ -376,7 +376,7 @@ DOM.copyPublicKeyBtn.addEventListener('click', async () => {
     if (publicKey) {
         const success = await copyToClipboard(publicKey);
         if (success) {
-            DOM.copyPublicKeyBtn.textContent = '✓ Copiado';
+            DOM.copyPublicKeyBtn.textContent = 'Copiado';
             setTimeout(() => {
                 DOM.copyPublicKeyBtn.textContent = 'Copiar';
             }, 2000);
@@ -407,7 +407,7 @@ DOM.saveDescriptionBtn.addEventListener('click', async () => {
 
         if (result.success) {
             AppState.description = description;
-            DOM.saveDescriptionBtn.textContent = '✓ Guardado';
+            DOM.saveDescriptionBtn.textContent = 'Guardado';
             setTimeout(() => {
                 DOM.saveDescriptionBtn.textContent = 'Guardar';
             }, 2000);
@@ -492,7 +492,7 @@ DOM.copySignatureBtn.addEventListener('click', async () => {
     if (signature) {
         const success = await copyToClipboard(signature);
         if (success) {
-            DOM.copySignatureBtn.textContent = '✓ Copiado';
+            DOM.copySignatureBtn.textContent = 'Copiado';
             setTimeout(() => {
                 DOM.copySignatureBtn.textContent = 'Copiar Firma';
             }, 2000);
@@ -547,12 +547,12 @@ DOM.verifySignatureForm.addEventListener('submit', async (e) => {
 
             if (result.valid) {
                 DOM.verificationIcon.className = 'status-icon valid';
-                DOM.verificationTitle.textContent = 'Firma Válida ✓';
+                DOM.verificationTitle.textContent = 'Firma Válida';
                 DOM.verificationMessage.textContent = result.reason || 'Firma verificada correctamente';
                 showMessage(DOM.verifyMessage, 'La firma es válida', 'success');
             } else {
                 DOM.verificationIcon.className = 'status-icon invalid';
-                DOM.verificationTitle.textContent = 'Firma Inválida ✗';
+                DOM.verificationTitle.textContent = 'Firma Inválida';
                 DOM.verificationMessage.textContent = result.reason || 'La firma no coincide';
                 showMessage(DOM.verifyMessage, 'La firma no es válida', 'error');
             }
