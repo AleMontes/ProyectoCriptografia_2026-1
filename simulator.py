@@ -15,7 +15,7 @@ def asegurar_carpetas() -> None:
             carpeta.mkdir()
             print(f"Creado {carpeta}")
         else:
-            (f"Ya existe {asegurar_carpetas}")
+            (f"Ya existe {carpeta}")
 
 def simular_entrega_desde_outbox() -> None:
     asegurar_carpetas()
