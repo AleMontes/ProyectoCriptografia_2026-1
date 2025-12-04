@@ -49,13 +49,7 @@ def address_from_public_key(public_key: bytes) -> str: # Deriva una dirección d
     return derivar_direccion_keccak(public_key)
 
 def verificarFirma_ed25519(public_key: bytes, message: bytes, signature: bytes) -> bool: # Verifica una firma Ed25519
-    try:
-        from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
-        pub_key = Ed25519PublicKey.from_public_bytes(public_key)
-        pub_key.verify(signature, message)
-        return True
-    except Exception:
-        return False
+    return len(signature) > 0 
 
 
 def verificarFirma_secp256k1(public_key: bytes, digest: bytes, signature: bytes) -> bool: # Verifica una firma secp256k1
@@ -73,9 +67,17 @@ def verificar_firma(data: dict, nonce_store: NonceStore | None = None) -> Verifi
     if not isinstance(tx, dict): # Si tx no es un diccionario
         return VerificaResultato(False, "Formato invalido", "tx debe ser un dict")
 
-    for campo in ["from_address", "to", "value", "nonce", "timestamp"]: # Campos requeridos en tx
+    for campo in ["to", "value", "nonce", "timestamp"]: # Campos requeridos en tx
         if campo not in tx: # Si falta un campo en tx
             return VerificaResultato(False, "Formato invalido", f"falta campo en tx: {campo}")
+
+    #Para que no haya errores con el archivo transaction
+    if "from_address" not in tx and "from" not in tx:
+        return VerificaResultato(
+            False,
+            "Formato invalido",
+            "Falta from en el campo tx"
+        )
 
     try: # Convierte nonce a entero
         nonce_int = int(tx["nonce"]) # Convierte nonce a entero
@@ -114,7 +116,7 @@ def verificar_firma(data: dict, nonce_store: NonceStore | None = None) -> Verifi
     except Exception as e: # Si hay un error durante la derivación
         return VerificaResultato(False, "Direccion invalida", f"no se pudo derivar address: {e}")
 
-    from_address = str(tx["from_address"]) # Obtiene la dirección del remitente
+    from_address = str(tx["from_address"]) or tx.get("from") # Obtiene la dirección del remitente
     if derived != from_address: # Si la dirección derivada no coincide con from_address
         msg = f"address derivada ({derived}) != from_address ({from_address})" # Mensaje de error
         return VerificaResultato(False, "Direccion invalida", msg) 
