@@ -1,4 +1,3 @@
-from __future__ import annotations #Borrar después de las pruebas
 from dataclasses import dataclass
 from pathlib import Path
 import json
