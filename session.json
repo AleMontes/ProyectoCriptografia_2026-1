@@ -1,0 +1,10 @@
+{
+  "sessionId": "b43ac6a0b6dc284196195a28725651e2",
+  "success": true,
+  "wallet": {
+    "address": "0x4102c7a3996c4fdc8b5bcf32503d8775dfc7c10d",
+    "description": "Wallet cargada",
+    "keystorePath": "test_wallet.json",
+    "publicKey": "V7ZxoBea3Ewp0ynryxEtPTuQJKjSF+3ggpUZOgw7zc0="
+  }
+}

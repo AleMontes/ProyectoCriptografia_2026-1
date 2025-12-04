@@ -13,7 +13,10 @@ from cryptography.hazmat.primitives.asymmetric import ed25519
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 
 from argon2.low_level import hash_secret_raw, Type as ArgonType
-import sha3   # de la librería pysha3 (para keccak256)
+try:
+    import sha3   # de la librería pysha3 (para keccak256)
+except ImportError:
+    import sha3_compat as sha3  # Fallback a pycryptodome
 
 
 # Aqui empiezan ls utildades generales (base64, fechas, permisos)

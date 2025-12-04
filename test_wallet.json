@@ -1,0 +1,19 @@
+{
+  "checksum_hex": "bf1bc27f805cd019d5429f405ddfcca8009bcd2f7e6c62123b39927bbbf17e86",
+  "cipher": "AES-256-GCM",
+  "cipher_params": {
+    "nonce_b64": "BCX97Ec3UvbVBsXq"
+  },
+  "ciphertext_b64": "FOK/2vDKJB2xfdovV6tvNHGYuBfTaNwTqry37NOXcHY=",
+  "created": "2025-12-03T23:35:32Z",
+  "kdf": "Argon2id",
+  "kdf_params": {
+    "memory_cost_kib": 131072,
+    "parallelism": 1,
+    "salt_b64": "L8ljt79uxvslGMQ9Ac7Ndg==",
+    "time_cost": 2
+  },
+  "pubkey_b64": "V7ZxoBea3Ewp0ynryxEtPTuQJKjSF+3ggpUZOgw7zc0=",
+  "scheme": "Ed25519",
+  "tag_b64": "vqMRo9QgGVM7LCh7PLWJEQ=="
+}

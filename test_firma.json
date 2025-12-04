@@ -1,0 +1,18 @@
+{
+  "signature": "opnrKAGOFPkvhCcsR6qt5ktcoZU2Gkm/L9lI+KLY+gGp2/1KeMBJ5tsog/t2rIBE8nz6q4ABcqcj9I27ZuELBA==",
+  "signedTransaction": {
+    "pubkey_b64": "V7ZxoBea3Ewp0ynryxEtPTuQJKjSF+3ggpUZOgw7zc0=",
+    "sig_scheme": "ed25519",
+    "signature_b64": "opnrKAGOFPkvhCcsR6qt5ktcoZU2Gkm/L9lI+KLY+gGp2/1KeMBJ5tsog/t2rIBE8nz6q4ABcqcj9I27ZuELBA==",
+    "tx": {
+      "data_hex": "",
+      "from_address": "0x4102c7a3996c4fdc8b5bcf32503d8775dfc7c10d",
+      "gas_limit": "21000",
+      "nonce": "0",
+      "timestamp": "2025-12-03T23:39:58.759966Z",
+      "to": "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
+      "value": "1000"
+    }
+  },
+  "success": true
+}

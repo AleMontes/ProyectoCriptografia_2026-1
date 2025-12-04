@@ -21,5 +21,10 @@
 			]
 		}
 	},
-	"remoteUser": "root"
+	"remoteUser": "root",
+    
+    "forwardPorts": [5000],
+
+    // Ejecuta el servidor cuando se abre la terminal del contenedor
+    "postAttachCommand": "chmod +x start.sh && ./start.sh"
 }
