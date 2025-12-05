@@ -22,4 +22,11 @@ este mecanismo te va a proporcionar una gestión de ellas para que, básicamente
 <p align=center> ¿Cómo puedes utilizar este proyecto? 😀  </p>
 <p> Para poder utilizar este proyecto debes tener en cuenta lo siguiente: </p>
 
+Esta opción utiliza Dev Containers para crear un entorno aislado con todas las librerías criptográficas preinstaladas.
+
+1. Abre la carpeta del proyecto en Visual Studio Code.
+2. Presiona "F1" y busca/selecciona: "Dev Containers: Reopen in Container".
+3. Espera a que el contenedor se construya. El servidor se iniciará automáticamente gracias a nuestra configuración postAttachCommand.
+4. Abre tu navegador en: [http://localhost:5000](http://localhost:5000)
+
 
