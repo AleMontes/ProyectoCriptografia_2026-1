@@ -16,8 +16,9 @@ la peculiaridad de una cold wallet es que estas están orientadas a funcionar co
 este mecanismo te va a proporcionar una gestión de ellas para que, básicamente, queden resguardadas y completamente seguras en un espacio de muy alta seguridad. </p>
 <p align="center">⚒️ ¿Que herramientas utilizamos? ⚒️</p>
 <p>✔️ Python </p>
-<p>✔️ JSON</p>
-<p>✔️  </p>
+<p>✔️ Visual Studio Code</p>
+<p>✔️ Dcoker </p>
+<p>✔️ Dev Containers (Extensión para VS Code </p>
 <p align=center> ¿Cómo puedes utilizar este proyecto? 😀  </p>
 <p> Para poder utilizar este proyecto debes tener en cuenta lo siguiente: </p>
 
