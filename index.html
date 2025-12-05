@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Cold Wallet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <h1>Crypto Cold Wallet</h1>
+            </div>
+            <div class="wallet-status" id="walletStatus">
+                <span class="status-indicator"></span>
+                <span class="status-text">No conectado</span>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs" id="navTabs" style="display: none;">
+            <button class="tab-button active" data-view="dashboard">
+                Panel
+            </button>
+            <button class="tab-button" data-view="sign">
+                Firmar
+            </button>
+            <button class="tab-button" data-view="verify">
+                Verificar
+            </button>
+            <button class="tab-button logout-tab" id="logoutBtn">
+                Cerrar Wallet
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- View 1: Create/Load Wallet (Login) -->
+            <section class="view active" id="loginView">
+                <div class="view-header">
+                    <h2>Gestión de Wallet</h2>
+                    <p class="subtitle">Crea una nueva wallet o carga una existente</p>
+                </div>
+
+                <div class="wallet-forms">
+                    <!-- Create Wallet Form -->
+                    <div class="form-card">
+                        <h3>Crear Wallet Nueva</h3>
+                        <form id="createWalletForm">
+                            <div class="form-group">
+                                <label for="createKeystorePath">Ruta del Keystore</label>
+                                <input
+                                    type="text"
+                                    id="createKeystorePath"
+                                    placeholder="ej. ./wallets/mi_wallet.json"
+                                    required
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="createPassphrase">Passphrase</label>
+                                <input
+                                    type="password"
+                                    id="createPassphrase"
+                                    placeholder="Ingresa una passphrase segura"
+                                    required
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="createDescription">Descripción (opcional)</label>
+                                <input
+                                    type="text"
+                                    id="createDescription"
+                                    placeholder="Mi billetera personal"
+                                >
+                            </div>
+                            <button type="submit" class="btn btn-primary">Crear Wallet</button>
+                        </form>
+                    </div>
+
+                    <!-- Load Wallet Form -->
+                    <div class="form-card">
+                        <h3>Cargar Wallet Existente</h3>
+                        <form id="loadWalletForm">
+                            <div class="form-group">
+                                <label for="loadKeystorePath">Ruta del Keystore</label>
+                                <input
+                                    type="text"
+                                    id="loadKeystorePath"
+                                    placeholder="ej. ./wallets/mi_wallet.json"
+                                    required
+                                >
+                            </div>
+                            <div class="form-group">
+                                <label for="loadPassphrase">Passphrase</label>
+                                <input
+                                    type="password"
+                                    id="loadPassphrase"
+                                    placeholder="Ingresa tu passphrase"
+                                    required
+                                >
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cargar Wallet</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Messages Area -->
+                <div class="message-area" id="loginMessage"></div>
+            </section>
+
+            <!-- View 2: Dashboard (Wallet Panel) -->
+            <section class="view" id="dashboardView">
+                <div class="view-header">
+                    <h2>Panel de Wallet</h2>
+                    <p class="subtitle">Información y detalles de tu wallet</p>
+                </div>
+
+                <div class="dashboard-content">
+                    <!-- Wallet Address Card -->
+                    <div class="info-card">
+                        <h3>Dirección de la Wallet</h3>
+                        <div class="address-display">
+                            <input
+                                type="text"
+                                id="walletAddress"
+                                readonly
+                                placeholder="0x..."
+                            >
+                            <button class="btn-icon" id="copyAddressBtn" title="Copiar dirección">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Public Key Card (Collapsible) -->
+                    <div class="info-card">
+                        <div class="collapsible-header" id="publicKeyToggle">
+                            <h3>Llave Pública (Base64)</h3>
+                            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="collapsible-content" id="publicKeyContent">
+                            <textarea
+                                id="publicKeyBase64"
+                                readonly
+                                rows="4"
+                                placeholder="Llave pública en Base64..."
+                            ></textarea>
+                            <button class="btn-small" id="copyPublicKeyBtn">Copiar</button>
+                        </div>
+                    </div>
+
+                    <!-- Description Card -->
+                    <div class="info-card">
+                        <h3>Descripción</h3>
+                        <div class="description-edit">
+                            <textarea
+                                id="walletDescription"
+                                rows="3"
+                                placeholder="Añade una descripción para tu wallet..."
+                            ></textarea>
+                            <button class="btn-small btn-success" id="saveDescriptionBtn">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View 3: Sign Message/Transaction -->
+            <section class="view" id="signView">
+                <div class="view-header">
+                    <h2>Firmar Mensaje/Transacción</h2>
+                    <p class="subtitle">Crea una firma digital para tu transacción</p>
+                </div>
+
+                <div class="sign-content">
+                    <form id="signMessageForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="txFrom">From (Dirección origen)</label>
+                                <input
+                                    type="text"
+                                    id="txFrom"
+                                    readonly
+                                    placeholder="Se llenará automáticamente"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="txTo">To (Dirección destino)</label>
+                                <input
+                                    type="text"
+                                    id="txTo"
+                                    placeholder="0x..."
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="txValue">Value (Cantidad)</label>
+                                <input
+                                    type="text"
+                                    id="txValue"
+                                    placeholder="1000"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="txNonce">Nonce (Número de transacción)</label>
+                                <input
+                                    type="number"
+                                    id="txNonce"
+                                    placeholder="0"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="txDataHex">Data (Hexadecimal - opcional)</label>
+                                <input
+                                    type="text"
+                                    id="txDataHex"
+                                    placeholder="0x..."
+                                >
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Firmar Mensaje</button>
+                    </form>
+
+                    <!-- Signature Result -->
+                    <div class="result-card" id="signatureResult" style="display: none;">
+                        <h3>Firma Generada</h3>
+                        <textarea
+                            id="signatureOutput"
+                            readonly
+                            rows="6"
+                            placeholder="La firma aparecerá aquí..."
+                        ></textarea>
+                        <button class="btn-small" id="copySignatureBtn">Copiar Firma</button>
+                    </div>
+                </div>
+
+                <!-- Messages Area -->
+                <div class="message-area" id="signMessage"></div>
+            </section>
+
+            <!-- View 4: Verify Signature -->
+            <section class="view" id="verifyView">
+                <div class="view-header">
+                    <h2>Verificar Firma</h2>
+                    <p class="subtitle">Valida la autenticidad de una firma</p>
+                </div>
+
+                <div class="verify-content">
+                    <form id="verifySignatureForm">
+                        <div class="form-group">
+                            <label for="txFromAddress">Dirección del Remitente</label>
+                            <input
+                                type="text"
+                                id="txFromAddress"
+                                placeholder="0x..."
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="originalMessage">Mensaje/Tx Original (Canonical JSON)</label>
+                            <textarea
+                                id="originalMessage"
+                                rows="6"
+                                placeholder='{"from":"0x...","to":"0x...","value":"1000","nonce":0}'
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signatureToVerify">Firma (Base64)</label>
+                            <textarea
+                                id="signatureToVerify"
+                                rows="4"
+                                placeholder="Pega la firma en Base64..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="publicKeyToVerify">Llave Pública (Base64)</label>
+                            <textarea
+                                id="publicKeyToVerify"
+                                rows="2"
+                                placeholder="Pega la llave pública en Base64..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Verificar Firma</button>
+                    </form>
+
+                    <!-- Verification Result -->
+                    <div class="result-card" id="verificationResult" style="display: none;">
+                        <div class="verification-status">
+                            <div class="status-icon" id="verificationIcon"></div>
+                            <div class="status-content">
+                                <h3 id="verificationTitle">Resultado</h3>
+                                <p id="verificationMessage">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Area -->
+                <div class="message-area" id="verifyMessage"></div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Crypto Cold Wallet &copy; 2025 | Seguridad y control total</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

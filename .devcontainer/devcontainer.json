@@ -1,0 +1,30 @@
+{
+	"name": "Entorno Cripto (Python 3.10)",
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": ".."
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"workbench.colorCustomizations": {
+					"activityBar.background": "#007a45",
+					"titleBar.activeBackground": "#005a32",
+					"titleBar.activeForeground": "#ffffff",
+                    "statusBar.background": "#007a45"
+				}
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance"
+			]
+		}
+	},
+	"remoteUser": "root",
+    
+    "forwardPorts": [5000],
+
+    // Ejecuta el servidor cuando se abre la terminal del contenedor
+    "postAttachCommand": "chmod +x start.sh && ./start.sh"
+}

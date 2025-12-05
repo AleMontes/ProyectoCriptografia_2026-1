@@ -1,0 +1,12 @@
+{
+  "tx": {
+    "from_address": "0x01ee133b9c05e4e6289ee1c05a83e3d9ff5f58be",
+    "to": "0xDESTINO123",
+    "value": "100",
+    "nonce": "0",
+    "timestamp": 1234567890
+  },
+  "sig_scheme": "ed25519",
+  "signature_b64": "ZHVtbXlfc2lnbmF0dXJl",
+  "public_key_b64": "ZHVtbXlwdWI="
+}
